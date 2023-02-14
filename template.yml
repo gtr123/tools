@@ -5,6 +5,15 @@ infra:
  secret: '@secret@'
 
 calls:
+  -call: 0
+    description: Fetch a token
+    url: /oauth2/v1/token
+    method: post
+    data: grant_type=client_credentials&scope=@scope@
+    headers:
+      - Content-Type: application/x-www-form-urlencoded
+
+
   - call: 1
     description: Get a list of users
     url: Users
