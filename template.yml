@@ -1,0 +1,49 @@
+---
+infra:
+ baseurl: https://{host}/admin/v1/
+ clientId: '@clientId@'
+ secret: '@secret@'
+
+calls:
+  - call: 1
+    description: Get a list of users
+    url: Users
+    method: get
+
+  - call: 2
+    description: Create a user.
+    url: Users
+    method: post
+    data: {
+            "schemas": [
+              "urn:ietf:params:scim:schemas:core:2.0:User"
+            ],
+            "name": {
+            "givenName": "@givenname@",
+            "familyName": "@familyname@"
+            },
+            "userName": "@username@",
+            "emails": [
+            {
+              "value": "@work.email@",
+              "type": "work",
+              "primary": true
+            },
+            {
+              "value": "@recovery.email@",
+              "primary": false,
+              "type": "recovery"
+            }
+            ]
+          }
+
+  - call: 3
+    description: Delete a user
+    method: delete
+    url: Users/@id@
+
+  - call: 4
+    description: Get a user by mail
+    method: get
+    url: Users?filter=userName eq "@mail@"
+          
