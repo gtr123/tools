@@ -4,7 +4,7 @@
 definitions:
 - defaults:
   -headers:
-    -header:
+    header:
       name: Authorization
       value: Bearer {access_token}
 
@@ -15,14 +15,11 @@ definitions:
   path: /admin/v1/Users?filter=name eq "{userName}"
   method: GET
   data: ~
-  headers:
-
-
- response:
+  headers: ~
+  response:
     status-code: 200
     output:
       keys: id
-
 - call:
   name: Reset factors
   metadata: label2
@@ -52,5 +49,3 @@ config:
   tenant: <idcs-tenant-id>
   id: <client-id>
   secret: <client-secret>
-
-
