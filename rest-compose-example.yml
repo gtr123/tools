@@ -1,5 +1,6 @@
 # This is a template.yaml file for a simple rest call composition
 # Reference IDCS REST API : https://docs.oracle.com/en/cloud/paas/identity-cloud/rest-api/op-admin-v1-authenticationfactorsremover-post.html
+---
 definitions:
 - defaults:
   -headers:
