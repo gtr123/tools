@@ -1,0 +1,55 @@
+# This is a template.yaml file for a simple rest call composition
+# Reference IDCS REST API : https://docs.oracle.com/en/cloud/paas/identity-cloud/rest-api/op-admin-v1-authenticationfactorsremover-post.html
+definitions:
+- defaults:
+  -headers:
+    -header:
+      name: Authorization
+      value: Bearer {access_token}
+
+- call:
+  name: getUserId
+  metadata: label1
+  id: 1
+  path: /admin/v1/Users?filter=name eq "{userName}"
+  method: GET
+  data: ~
+  headers:
+
+
+ response:
+    status-code: 200
+    output:
+      keys: id
+
+- call:
+  name: Reset factors
+  metadata: label2
+  id: 2
+  path: /admin/v1/Users/{id}
+  method: POST
+  data: |
+               {
+                    "schemas": [
+                        "urn:ietf:params:scim:schemas:oracle:idcs:AuthenticationFactorsRemover"
+                     ],
+                     "type": "MFA",
+                     "user": {
+                             "value": "{id}"
+                     }
+                }
+  headers:
+    -header:
+      name: Content-Type
+      value: application/json
+
+compose:
+  - 2*1
+
+---
+config:
+  tenant: <idcs-tenant-id>
+  id: <client-id>
+  secret: <client-secret>
+
+
